@@ -16,18 +16,71 @@ window.toggleFaq = function(btn) {
   document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 };
-
-// ── WhatsApp form handler
-window.sendWhatsApp = function(e, nameId, msgId) {
-  e.preventDefault();
-  const name = document.getElementById(nameId).value.trim();
-  const msg  = document.getElementById(msgId).value.trim();
-  
-  let text = msg
-    ? `Hi! My name is ${name}. I'd like to sell my diabetic supplies:\n\n${msg}\n\nI'd like to get an offer.`
-    : `Hi! My name is ${name}. I'm interested in selling my unused diabetic supplies. I'd like to get a free offer.`;
-  
-  // Open WhatsApp with correct phone number
-  window.open(`https://wa.me/14079005510?text=${encodeURIComponent(text)}`, '_blank');
-  e.target.reset();
-};
+// ── Email form AJAX submissions via FormSubmit.co
+document.querySelectorAll('.email-form').forEach(form => {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state with spinner
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="animation: spin 1s linear infinite; margin-right: 0.5rem; display: inline-block; vertical-align: middle;">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity="0.25"></circle>
+        <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor"></path>
+      </svg>
+      <span>Sending...</span>
+    `;
+    
+    const formData = new FormData(form);
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+    
+    // Add subject line if data-subject is present
+    if (form.getAttribute('data-subject')) {
+      data['_subject'] = form.getAttribute('data-subject');
+    }
+    // Disable FormSubmit captcha verification screen
+    data['_captcha'] = 'false';
+    
+    // FormSubmit AJAX Endpoint
+    fetch('https://formsubmit.co/ajax/b.michael23@yahoo.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(res => {
+      if (res.success === 'true' || res.success === true) {
+        // Show success state inside the form card
+        form.innerHTML = `
+          <div class="form-success-message" style="text-align: center; padding: 2rem 1rem;">
+            <div class="success-icon" style="width: 60px; height: 60px; background: rgba(26,232,180,.15); color: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); margin-bottom: .5rem; letter-spacing: .05em;">Message Sent!</h3>
+            <p style="font-size: .95rem; color: var(--muted); line-height: 1.6;">Thank you! Your quote request has been sent to our email. We will contact you with a cash offer shortly.</p>
+          </div>
+        `;
+      } else {
+        throw new Error('Submission failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error submitting form:', error);
+      // Reset button state and display error alert
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+      alert('Oops! There was a problem submitting your request. Please try calling or texting us directly at (407) 900-5510.');
+    });
+  });
+});
