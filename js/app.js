@@ -19,6 +19,12 @@ window.toggleFaq = function(btn) {
 // ── Email form AJAX submissions via FormSubmit.co
 document.querySelectorAll('.email-form').forEach(form => {
   form.addEventListener('submit', function(e) {
+    // If running locally via file://, let the browser submit normally (no AJAX)
+    // to bypass FormSubmit's CORS block on file:// origins.
+    if (window.location.protocol === 'file:') {
+      return; 
+    }
+    
     e.preventDefault();
     
     const submitBtn = form.querySelector('button[type="submit"]');
