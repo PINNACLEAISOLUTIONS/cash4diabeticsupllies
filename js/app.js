@@ -54,7 +54,7 @@ document.querySelectorAll('.email-form').forEach(form => {
     data['_captcha'] = 'false';
     
     // FormSubmit AJAX Endpoint
-    fetch('https://formsubmit.co/ajax/b.michael23@yahoo.com', {
+    fetch('https://formsubmit.co/ajax/b.michel23@yahoo.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
