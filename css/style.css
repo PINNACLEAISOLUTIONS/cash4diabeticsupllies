@@ -17,6 +17,11 @@
   --muted:    #8a93a8;
   --border:   rgba(255,255,255,.09);
   --border-l: rgba(10,13,20,.08);
+  
+  --ice-blue:        #edf3f8;
+  --ice-blue-border: #ccd6e0;
+  --slate-navy:      #131a26;
+  --slate-gray:      #4e596b;
 
   --r-sm: 8px;
   --r:    16px;
@@ -66,13 +71,50 @@ nav {
   height: 72px; display: flex; align-items: center; justify-content: space-between;
 }
 .nav-brand {
-  text-decoration: none; display: flex; align-items: center; gap: .65rem;
+  text-decoration: none; display: flex; align-items: center; gap: .75rem;
   transition: opacity var(--t);
 }
-.nav-brand:hover { opacity: .82; }
-.nav-brand img {
-  height: 48px;
-  width: auto;
+.nav-brand:hover { opacity: 1; }
+.nav-brand-badge {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(245,200,66,.25);
+  transition: transform var(--tm), background var(--t), box-shadow var(--tm);
+}
+.nav-brand-badge svg {
+  stroke: var(--ink);
+  transition: stroke var(--t);
+}
+.nav-brand:hover .nav-brand-badge {
+  transform: scale(1.06);
+  background: var(--white);
+  box-shadow: 0 6px 16px rgba(255,255,255,.2);
+}
+.nav-brand:hover .nav-brand-badge svg {
+  stroke: var(--slate-navy);
+}
+.nav-brand-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--white);
+  line-height: 1;
+  display: flex; align-items: center;
+  transition: color var(--t);
+}
+.nav-brand-name span {
+  color: var(--gold);
+  margin: 0 2px;
+  transition: color var(--t);
+}
+.nav-brand:hover .nav-brand-name {
+  color: var(--gold);
+}
+.nav-brand:hover .nav-brand-name span {
+  color: var(--white);
 }
 .nav-r { display: flex; align-items: center; gap: .75rem; }
 .nav-num {
@@ -271,10 +313,12 @@ nav {
    TRUST BAR
    ───────────────────────────────────────── */
 #trust-bar {
-  background: var(--gold);
+  background: linear-gradient(90deg, #f5c842, #ffecae, #f5c842);
   padding: 1.1rem 1.5rem;
   overflow: hidden;
   position: relative;
+  border-top: 1.5px solid rgba(255,255,255,.15);
+  border-bottom: 1.5px solid rgba(10,13,20,.08);
 }
 .trust-bar-track {
   display: flex; gap: 3rem; align-items: center;
@@ -292,13 +336,13 @@ nav {
    LEGITIMACY / TRUST SECTION
    ───────────────────────────────────────── */
 #legit {
-  background: var(--white); color: var(--ink);
+  background: var(--ice-blue); color: var(--slate-navy);
   padding: 7rem 1.5rem;
   position: relative; overflow: hidden;
 }
 .legit-accent {
   position: absolute; right: -100px; top: -100px; width: 400px; height: 400px;
-  border-radius: 50%; background: radial-gradient(circle, rgba(245,200,66,.12) 0%, transparent 70%);
+  border-radius: 50%; background: radial-gradient(circle, rgba(245,200,66,.18) 0%, transparent 70%);
   pointer-events: none;
 }
 .legit-inner {
@@ -312,20 +356,20 @@ nav {
 .legit-h2 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4.2rem); letter-spacing: .03em;
-  line-height: 1; color: var(--ink); margin-bottom: 1.25rem;
+  line-height: 1; color: var(--slate-navy); margin-bottom: 1.25rem;
 }
 .legit-h2 span { color: var(--gold-d); }
-.legit-body { font-size: 1rem; color: #4a5066; line-height: 1.75; margin-bottom: 2rem; max-width: 460px; }
+.legit-body { font-size: 1rem; color: var(--slate-gray); line-height: 1.75; margin-bottom: 2rem; max-width: 460px; }
 
 .legit-badges { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
 .legit-badge {
-  background: var(--off); border-radius: var(--r);
+  background: var(--white); border-radius: var(--r);
   padding: 1.25rem 1.25rem;
-  border: 1.5px solid var(--border-l);
+  border: 1.5px solid var(--ice-blue-border);
   display: flex; align-items: flex-start; gap: .85rem;
   transition: border-color var(--t), box-shadow var(--tm), transform var(--tm);
 }
-.legit-badge:hover { border-color: var(--gold-d); box-shadow: 0 8px 28px rgba(245,200,66,.15); transform: translateY(-3px); }
+.legit-badge:hover { border-color: var(--gold-d); box-shadow: 0 8px 28px rgba(245,200,66,.12); transform: translateY(-3px); }
 .lb-icon {
   width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
   background: var(--gold-l); color: var(--gold-d);
@@ -333,16 +377,16 @@ nav {
   transition: background var(--t), color var(--t);
 }
 .legit-badge:hover .lb-icon { background: var(--gold-d); color: var(--white); }
-.lb-name { font-size: .82rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
-.lb-sub { font-size: .75rem; color: #6a7388; margin-top: .15rem; }
+.lb-name { font-size: .82rem; font-weight: 700; color: var(--slate-navy); line-height: 1.3; }
+.lb-sub { font-size: .75rem; color: var(--slate-gray); margin-top: .15rem; }
 
 .legit-right {}
 .legit-stat-stack { display: flex; flex-direction: column; gap: 1.25rem; }
 .legit-stat {
-  background: var(--ink); color: var(--white);
+  background: var(--ink-2); color: var(--white);
   border-radius: var(--r); padding: 1.75rem 2rem;
   display: flex; align-items: center; gap: 1.5rem;
-  border: 1px solid rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.05);
   transition: transform var(--tm), box-shadow var(--tm);
 }
 .legit-stat:hover { transform: translateX(6px); box-shadow: 0 12px 36px rgba(0,0,0,.3); }
@@ -612,7 +656,7 @@ nav {
    FAQ
    ───────────────────────────────────────── */
 #faq {
-  background: var(--white); color: var(--ink); padding: 7rem 1.5rem;
+  background: var(--ice-blue); color: var(--slate-navy); padding: 7rem 1.5rem;
 }
 .faq-inner { max-width: 1160px; margin: auto; display: grid; grid-template-columns: 380px 1fr; gap: 5rem; align-items: start; }
 @media (max-width: 800px) { .faq-inner { grid-template-columns: 1fr; gap: 3rem; } }
@@ -620,13 +664,13 @@ nav {
 .faq-h2 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: .03em; line-height: 1;
-  color: var(--ink); margin: .75rem 0 1rem;
+  color: var(--slate-navy); margin: .75rem 0 1rem;
 }
 .faq-h2 span { color: var(--gold-d); }
-.faq-body-text { font-size: .97rem; color: #5a637a; line-height: 1.75; margin-bottom: 2rem; }
+.faq-body-text { font-size: .97rem; color: var(--slate-gray); line-height: 1.75; margin-bottom: 2rem; }
 .faq-cta {
   display: inline-flex; align-items: center; gap: .6rem;
-  background: var(--ink); color: var(--white);
+  background: var(--slate-navy); color: var(--white);
   font-weight: 700; font-size: .93rem;
   padding: .9rem 1.75rem; border-radius: var(--r-sm);
   text-decoration: none;
@@ -636,31 +680,32 @@ nav {
 .faq-right {}
 .faq-list { display: flex; flex-direction: column; gap: .75rem; }
 .faq-item {
-  border: 1.5px solid var(--border-l); border-radius: var(--r);
+  background: var(--white);
+  border: 1.5px solid var(--ice-blue-border); border-radius: var(--r);
   overflow: hidden;
   transition: border-color var(--t), box-shadow var(--t);
 }
-.faq-item:hover { border-color: rgba(217,168,0,.3); box-shadow: 0 4px 20px rgba(217,168,0,.08); }
+.faq-item:hover { border-color: var(--gold-d); box-shadow: 0 4px 20px rgba(217,168,0,.08); }
 .faq-q {
   width: 100%; padding: 1.15rem 1.4rem;
   background: none; border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  font-size: .95rem; font-weight: 700; color: var(--ink); font-family: inherit;
+  font-size: .95rem; font-weight: 700; color: var(--slate-navy); font-family: inherit;
   text-align: left;
   transition: background var(--t);
 }
-.faq-q:hover { background: var(--off); }
+.faq-q:hover { background: rgba(238,243,247,.3); }
 .faq-q-icon {
   width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-  background: var(--off); color: var(--ink);
+  background: var(--ice-blue); color: var(--slate-navy);
   display: flex; align-items: center; justify-content: center;
   transition: background var(--t), color var(--t), transform var(--t);
 }
-.faq-item.open .faq-q-icon { background: var(--ink); color: var(--white); transform: rotate(45deg); }
+.faq-item.open .faq-q-icon { background: var(--slate-navy); color: var(--white); transform: rotate(45deg); }
 .faq-a {
   max-height: 0; overflow: hidden;
   transition: max-height .35s var(--e), padding var(--t);
-  font-size: .9rem; color: #5a637a; line-height: 1.75;
+  font-size: .9rem; color: var(--slate-gray); line-height: 1.75;
   padding: 0 1.4rem;
 }
 .faq-item.open .faq-a { max-height: 350px; padding: 0 1.4rem 1.25rem; }
