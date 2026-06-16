@@ -418,6 +418,28 @@ nav {
 }
 .how-h2 em { color: var(--gold); font-style: normal; }
 .how-sub { font-size: 1rem; color: var(--muted); max-width: 420px; margin: 0 auto; line-height: 1.7; }
+.how-ref-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(245, 200, 66, 0.08);
+  color: var(--gold);
+  border: 1px solid rgba(245, 200, 66, 0.2);
+  padding: .45rem 1.1rem;
+  border-radius: 30px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  transition: transform var(--tm), background var(--t);
+  cursor: default;
+}
+.how-ref-badge:hover {
+  background: rgba(245, 200, 66, 0.12);
+  transform: translateY(-1px);
+}
 
 .how-steps {
   display: grid; grid-template-columns: repeat(3, 1fr);
